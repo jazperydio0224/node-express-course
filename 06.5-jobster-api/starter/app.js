@@ -6,6 +6,9 @@ const path = require("path");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 
+// cors
+const cors = require("cors");
+
 const express = require("express");
 const app = express();
 
@@ -24,6 +27,13 @@ app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(express.json());
 app.use(helmet());
 app.use(xss());
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
 
 // routes
 app.use("/api/v1/auth", authRouter);
